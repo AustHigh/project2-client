@@ -31,7 +31,7 @@ function checkForErrors(response) {
     return response;
 }
 
-const host;
+const host = 'https://scoreboard-server.duckdns.org:8442';
 
 
 

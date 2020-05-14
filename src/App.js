@@ -18,17 +18,24 @@ function App() {
 
   let len = cards.length
   for (let i = 0; i < len; i++) {
-    cards[i].newId = "card" + i;
+    cards[i].newId = i;
   }
+
+
 
   return (
     <div className="App">
+      <button onClick={saveStartTime}>start game</button>
       <Board cards={cards}/>
     </div>
   );
 }
 
 export default App;
+
+function saveStartTime() {
+  
+}
 
 function buildCards() {
   let id = 0

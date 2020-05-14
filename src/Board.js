@@ -16,8 +16,9 @@ const Board = props => {
     if (cardsInGridMatched) {
       setCompleted([...completed, newGrid[0].type])
       console.log(card.type, newGrid[0].type)
-      setCards(cards => cards.filter(card => card.type !== newGrid[0].type))
-      
+      setTimeout(() => {
+        setCards(cards => cards.filter(card => card.type !== newGrid[0].type))
+      }, 1000)
     }
     //allow player 1 second to view images
     if (gridFull(newGrid)) {

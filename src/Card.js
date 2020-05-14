@@ -5,7 +5,7 @@ const Card = props => {
   const {front, back, flipped, onClick, newId} = props
   const img = flipped ? front : back
   return (
-    <div id={newId} className="Card" onClick={onClick}>
+    <div id={`card${newId}`} className="Card" onClick={onClick}>
       <img src={img} alt=""/>
     </div>
   )
