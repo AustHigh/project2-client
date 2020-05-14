@@ -10,10 +10,16 @@ import sadCatJuul from './assets/sad-cat-juul.png';
 import scream from './assets/scream.jpg';
 import seagull from './assets/seagull.jpg';
 import './App.css';
+import './Board.css';
 
 function App() {
 
   const cards = buildCards();
+
+  let len = cards.length
+  for (let i = 0; i < len; i++) {
+    cards[i].newId = "card" + i;
+  }
 
   return (
     <div className="App">
@@ -37,10 +43,10 @@ function buildCards() {
     })
     return [...result, getCard(), getCard()]
   }, [])
-  return suffle(cards)
+  return shuffle(cards)
 }
 
-function suffle(arr) {
+function shuffle(arr) {
   let len = arr.length
   for (let i = 0; i < len; i++) {
     let randomIndex = Math.floor(Math.random() * len)

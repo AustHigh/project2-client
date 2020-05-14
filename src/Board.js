@@ -7,13 +7,16 @@ const Board = props => {
   const [grid, setGrid] = useState([])
   const [completed, setCompleted] = useState([])
   const onCardClick = card => () => {
+      console.log(card.id)
+      console.log(card.newId)
     if (gridFull(grid) || cardAlreadyInGrid(grid, card)) return
     const newGrid = [...grid, card]
     setGrid(newGrid)
     const cardsInGridMatched = validateGrid(newGrid)
     if (cardsInGridMatched) {
       setCompleted([...completed, newGrid[0].type])
-      console.log(card.id)
+      console.log(card.type, newGrid[0].type)
+      setCards(cards => cards.filter(card => card.type !== newGrid[0].type))
       
     }
     //allow player 1 second to view images
@@ -50,7 +53,7 @@ const Board = props => {
   return (
     <div className="Board">
       {cards.map(card => (
-        <Card {...card} onClick={onCardClick(card)} key={card.id} />
+        <Card {...card} onClick={onCardClick(card)} key={card.id} newId={""}/>
       ))}
     </div>
   )

@@ -1,11 +1,11 @@
 import React from 'react'
-import './Card.css'
+import './Board.css'
 
 const Card = props => {
-  const {front, back, flipped, onClick} = props
+  const {front, back, flipped, onClick, newId} = props
   const img = flipped ? front : back
   return (
-    <div className="Card" onClick={onClick}>
+    <div id={newId} className="Card" onClick={onClick}>
       <img src={img} alt=""/>
     </div>
   )
