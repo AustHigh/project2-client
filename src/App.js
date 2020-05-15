@@ -11,31 +11,28 @@ import scream from './assets/scream.jpg';
 import seagull from './assets/seagull.jpg';
 import './App.css';
 import './Board.css';
+import {useSelector, useDispatch} from 'react-redux';
 
 function App() {
 
   const cards = buildCards();
 
-  let len = cards.length
-  for (let i = 0; i < len; i++) {
-    cards[i].newId = i;
-  }
-
-
-
   return (
     <div className="App">
-      <button onClick={saveStartTime}>start game</button>
+      <div>
+        <button id="start-button">Start Game</button>
+        <button id="score-board">Scoreboard</button>
+      </div>
+      <p id="move-counter">Moves: 0</p>
+      <div id="gameBoard" className="Board">
       <Board cards={cards}/>
+      </div>
     </div>
   );
 }
 
 export default App;
 
-function saveStartTime() {
-  
-}
 
 function buildCards() {
   let id = 0

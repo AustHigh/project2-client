@@ -2,22 +2,63 @@
     height: 450px;
     width: 450px;
     display: grid;
+    justify-content: center;
     grid-template-columns: auto auto auto auto;
     align-items: center;
     flex-wrap: wrap;
+    margin: auto;
+  }
+
+
+  #start-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 5px;
+  }
+
+  #score-board {
+    margin-left: 5px;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #move-counter {
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
   }
 
   .Card{
     flex: 1;
+    margin:30px;
+    padding: 15px;
+    text-align: center;
+    transition: transform .2s;
+    transform-style: preserve-3d;
+    user-select: none;
   }
-  
+
   .Card:hover{
     cursor: pointer;
   }
-  
+
+  .Card:active{
+    transform: rotateY(180deg);
+  }
+
   .Card img{
     width: 100px;
     height: 100px;
+    display: block;
+    border: 2px solid black;
   }
   
   #card0 {
