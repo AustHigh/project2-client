@@ -4,11 +4,19 @@ export const Action = Object.freeze({
     StartWaiting: 'StartWaiting',
     StartGame: 'StartGame',
     ResetGame: 'ResetGame',
+    LoadScores: 'LoadScores',
 });
 
 export function startWating(){
     return {
         type: Action.StartWaiting,
+    };
+}
+
+export function loadScores(scoreboard){
+    return {
+        type: Action.LoadScores,
+        payload: scoreboard,
     };
 }
 
@@ -48,6 +56,20 @@ function checkForErrors(response) {
 }
 
 const host = 'https://scoreboard-server.duckdns.org:8442';
+
+export function loadScoreboard() {
+    return dispatch => {
+        fetch(`${host}/scoreboard`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    dispatch(loadScores(data.scoreboard));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
 
 
 

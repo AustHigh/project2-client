@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Board from './Board';
 import back from './assets/gray-square.jpg';
 import crow from './assets/crow.jpg';
@@ -12,19 +12,26 @@ import seagull from './assets/seagull.jpg';
 import './App.css';
 import './Board.css';
 import {useSelector, useDispatch} from 'react-redux';
+import {loadScoreboard} from './actions';
 
 function App() {
 
   let startGame = false;
 
   const cards = buildCards();
+  const dispatch = useDispatch();
 
   function onStart() {
     startGame = true;
+    console.log("beep")
   }
+
+  useEffect(() => {
+    dispatch(loadScoreboard()); 
+  }, [dispatch]);
   
-console.log(startGame)
-if(startGame){
+//console.log(startGame)
+//if(startGame){
   return (
     <div className="App">
       <div>
@@ -37,13 +44,14 @@ if(startGame){
       </div>
     </div>
   );
-} else {
+ /* } else {
   return (
     <div className="App">
       <button id="start-button" onClick={onStart}>Start Game</button>
     </div>
   );
 }
+*/
 }
 
 export default App;
