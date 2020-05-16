@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from 'react'
+import {useDispatch} from 'react-redux';
+//import {startGame} from './actions';
 import Card from './Card.js'
 import './Board.css'
+
+
 
 let moves = 0;
 
 const Board = props => {
 
+  const dispatch = useDispatch();
   const [cards, setCards] = useState(props.cards)
   const [grid, setGrid] = useState([])
   const [completed, setCompleted] = useState([])
@@ -61,6 +66,7 @@ const Board = props => {
     }))
     setCards(newCards)
   }, [grid, completed])
+
 
   return (
     <div className="Board">

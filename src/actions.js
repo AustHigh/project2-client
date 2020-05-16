@@ -2,6 +2,8 @@ export const Action = Object.freeze({
     LoadBoard: 'LoadBoard',
     RemoveMatch: 'RemoveMatch',
     StartWaiting: 'StartWaiting',
+    StartGame: 'StartGame',
+    ResetGame: 'ResetGame',
 });
 
 export function startWating(){
@@ -20,6 +22,20 @@ export function loadBoard(cards){
 export function removeMatch(cards){
     return{
         type: Action.RemoveMatch,
+        payload: cards,
+    }
+}
+
+export function startGame(cards) {
+    return {
+        type: Action.StartGame,
+        payload: cards,
+    }
+}
+
+export function resetGame(cards) {
+    return {
+        type: Action.ResetGame,
         payload: cards,
     }
 }

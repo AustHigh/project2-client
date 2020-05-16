@@ -15,8 +15,16 @@ import {useSelector, useDispatch} from 'react-redux';
 
 function App() {
 
+  let startGame = false;
+
   const cards = buildCards();
 
+  function onStart() {
+    startGame = true;
+  }
+  
+console.log(startGame)
+if(startGame){
   return (
     <div className="App">
       <div>
@@ -29,9 +37,17 @@ function App() {
       </div>
     </div>
   );
+} else {
+  return (
+    <div className="App">
+      <button id="start-button" onClick={onStart}>Start Game</button>
+    </div>
+  );
+}
 }
 
 export default App;
+
 
 
 function buildCards() {
