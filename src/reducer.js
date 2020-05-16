@@ -3,6 +3,7 @@ import {Action} from "./actions";
 const initialState = {
     isWaiting: false,
     startGame: false,
+    scoreboard: [],
 }
 
 function reducer(state = initialState, action) {
@@ -16,6 +17,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 startGame: false,
+            }
+        case Action.LoadScores:
+            return {
+                ...state,
+                scoreboard: action.payload,
             }
         default:
             return state;

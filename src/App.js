@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Board from './Board';
+import Score from './Score';
 import back from './assets/gray-square.jpg';
 import crow from './assets/crow.jpg';
 import cursedSmile from './assets/cursed-smile.jpg';
@@ -16,42 +17,31 @@ import {loadScoreboard} from './actions';
 
 function App() {
 
-  let startGame = false;
-
+  const scoreboard = useSelector(state => state.scoreboard);
+  const isWaiting = useSelector(state => state.isWaiting);
   const cards = buildCards();
   const dispatch = useDispatch();
-
-  function onStart() {
-    startGame = true;
-    console.log("beep")
-  }
 
   useEffect(() => {
     dispatch(loadScoreboard()); 
   }, [dispatch]);
   
-//console.log(startGame)
-//if(startGame){
   return (
     <div className="App">
       <div>
         <button id="start-button">Start Game</button>
         <button id="score-board">Scoreboard</button>
       </div>
+      <div>
+        {scoreboard.map(score => <Score key={score.id} score={score} />)}
+      </div>
       <p id="move-counter">Moves: 0</p>
       <div id="gameBoard" className="Board">
       <Board cards={cards}/>
       </div>
+      
     </div>
   );
- /* } else {
-  return (
-    <div className="App">
-      <button id="start-button" onClick={onStart}>Start Game</button>
-    </div>
-  );
-}
-*/
 }
 
 export default App;
