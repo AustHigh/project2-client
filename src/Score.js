@@ -11,7 +11,7 @@ export function Score(props) {
     return (
         <div className="score">
           <span>{name}</span>
-           <span>{moves}</span>
+           <span> {moves}</span>
         </div>
     );
 }

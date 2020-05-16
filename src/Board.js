@@ -37,6 +37,7 @@ const Board = props => {
     if (gridFull(newGrid)) {
       resetGridAfter(1000)
     }
+    //signifies game completion
     if(completed.length === 7 && newGrid.length === 2){
         console.log("end")
     }

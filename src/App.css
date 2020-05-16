@@ -1,10 +1,8 @@
 .App {
   text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 body {

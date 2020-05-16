@@ -13,15 +13,15 @@ function reducer(state = initialState, action) {
                 ...state,
                 startGame: true,
             }
-        case Action.ResetGame:
-            return {
-                ...state,
-                startGame: false,
-            }
         case Action.LoadScores:
             return {
                 ...state,
                 scoreboard: action.payload,
+            }
+        case Action.StartWaiting:
+            return {
+                ...state,
+                isWaiting: true,
             }
         default:
             return state;

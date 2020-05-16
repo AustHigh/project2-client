@@ -13,12 +13,13 @@ import seagull from './assets/seagull.jpg';
 import './App.css';
 import './Board.css';
 import {useSelector, useDispatch} from 'react-redux';
-import {loadScoreboard} from './actions';
+import {loadScoreboard, startGame} from './actions';
 
 function App() {
 
   const scoreboard = useSelector(state => state.scoreboard);
   const isWaiting = useSelector(state => state.isWaiting);
+  const startGame = useSelector(state => state.startGame);
   const cards = buildCards();
   const dispatch = useDispatch();
 
@@ -26,27 +27,31 @@ function App() {
     dispatch(loadScoreboard()); 
   }, [dispatch]);
   
+  /*
+  const onStart = () => {
+    dispatch(startGame());
+  }
+  */
+
   return (
     <div className="App">
-      <div>
-        <button id="start-button">Start Game</button>
+      <div id="left-side">
+        <p id="move-counter">Moves: 0</p>
+        <div id="gameBoard" className="Board">
+          <Board cards={cards}/>
+        </div>
+      </div>
+      <div id="right-side">
         <button id="score-board">Scoreboard</button>
+        <div id="scores">
+          {scoreboard.map(score => <Score key={score.id} score={score} />)}
+        </div>
       </div>
-      <div>
-        {scoreboard.map(score => <Score key={score.id} score={score} />)}
-      </div>
-      <p id="move-counter">Moves: 0</p>
-      <div id="gameBoard" className="Board">
-      <Board cards={cards}/>
-      </div>
-      
     </div>
   );
 }
 
 export default App;
-
-
 
 function buildCards() {
   let id = 0
