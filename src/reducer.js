@@ -16,6 +16,7 @@ function reducer(state = initialState, action) {
         case Action.LoadScores:
             return {
                 ...state,
+                isWaiting: false,
                 scoreboard: action.payload,
             }
         case Action.StartWaiting:

@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Board from './Board';
 import Score from './Score';
 import back from './assets/gray-square.jpg';
@@ -23,12 +23,9 @@ function App() {
   const cards = buildCards();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadScoreboard()); 
-  }, [dispatch]);
-
   function toggleBoard() {
     setBoardFlag(!boardFlag);
+    dispatch(loadScoreboard()); 
   }
   
   if(boardFlag){
@@ -36,6 +33,7 @@ function App() {
     <div className="App">
       <div id="left-side">
         <p id="move-counter">Moves: 0</p>
+        {isWaiting && <div className="loading-icon">&#8635;</div>}
         <div id="gameBoard" className="Board">
           <Board cards={cards}/>
         </div>
@@ -53,6 +51,7 @@ function App() {
       <div className="App">
         <div id="left-side">
           <p id="move-counter">Moves: 0</p>
+          {isWaiting && <div className="loading-icon">&#8635;</div>}
           <div id="gameBoard" className="Board">
             <Board cards={cards}/>
           </div>

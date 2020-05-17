@@ -11,6 +11,7 @@ let moves = 0;
 const Board = props => {
 
   const [endFlag, setEndFlag] = useState(false);
+  const [postButtonFlag, setPostButtonFlag] = useState(true);
   const scoreboard = useSelector(state => state.scoreboard);
 
   const dispatch = useDispatch();
@@ -71,12 +72,19 @@ const Board = props => {
 
   const onPost = () => {
     dispatch(startAddingScore(name, moves));
+    setPostButtonFlag(false);
   }
 
-if(endFlag){
+if(endFlag && postButtonFlag){
   return (
     <div className="score-form">
       <button id="post-score-button" onClick={onPost}>Post Score</button>
+      {scoreboard.map(score => <Score key={score.id} score={score}/>)}
+    </div>
+  );
+} else if(endFlag) {
+  return (
+    <div className="score-form">
       {scoreboard.map(score => <Score key={score.id} score={score}/>)}
     </div>
   );
