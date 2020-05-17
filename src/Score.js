@@ -20,7 +20,7 @@ export function Score(props) {
     if(score.isPosting){
         return (
             <div className="score">
-                <input type="text" value={name} onChange={e =>
+                <input type="text" placeholder="Enter your name..." value={name} onChange={e =>
                 setName(e.target.value)}/>
                 <input type="text" value={moves} readOnly/>
                 <button onClick={onSave}>Save Score</button>
