@@ -1,22 +1,24 @@
 import React, {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux';
-//import {startGame} from './actions';
+import {useDispatch,  useSelector} from 'react-redux';
 import Card from './Card.js'
+import {startAddingScore} from './actions';
+import Score from './Score.js'
 import './Board.css'
 
-
-
+let name = "";
 let moves = 0;
 
 const Board = props => {
+
+  const [endFlag, setEndFlag] = useState(false);
+  const scoreboard = useSelector(state => state.scoreboard);
 
   const dispatch = useDispatch();
   const [cards, setCards] = useState(props.cards)
   const [grid, setGrid] = useState([])
   const [completed, setCompleted] = useState([])
+
   const onCardClick = card => () => {
-      console.log(card.id)
-      console.log(card.newId)
     if (gridFull(grid) || cardAlreadyInGrid(grid, card)) return
     const newGrid = [...grid, card]
     setGrid(newGrid)
@@ -27,11 +29,9 @@ const Board = props => {
     }
     if (cardsInGridMatched) {
       setCompleted([...completed, newGrid[0].type])
-      console.log(card.type, newGrid[0].type)
       setTimeout(() => {
         setCards(cards => cards.filter(card => card.type !== newGrid[0].type))
       }, 1000)
-      console.log(completed.toString())
     }
     //allow player 1 second to view images
     if (gridFull(newGrid)) {
@@ -40,6 +40,7 @@ const Board = props => {
     //signifies game completion
     if(completed.length === 7 && newGrid.length === 2){
         console.log("end")
+        setEndFlag(true);
     }
     function validateGrid(grid){
       return grid.length === 2 &&
@@ -68,7 +69,18 @@ const Board = props => {
     setCards(newCards)
   }, [grid, completed])
 
+  const onPost = () => {
+    dispatch(startAddingScore(name, moves));
+  }
 
+if(endFlag){
+  return (
+    <div className="score-form">
+      <button id="post-score-button" onClick={onPost}>Post Score</button>
+      {scoreboard.map(score => <Score key={score.id} score={score}/>)}
+    </div>
+  );
+} else {
   return (
     <div className="Board">
       {cards.map(card => (
@@ -76,6 +88,7 @@ const Board = props => {
       ))}
     </div>
   )
+  }
 }
 
 export default Board

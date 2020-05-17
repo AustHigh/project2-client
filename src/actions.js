@@ -1,7 +1,10 @@
+
 export const Action = Object.freeze({
     StartWaiting: 'StartWaiting',
-    StartGame: 'StartGame',
     LoadScores: 'LoadScores',
+    ShowBoard: 'ShowBoard',
+    FinishAddingScore: 'FinishAddingScore',
+    FinishSavingScore: 'FinishSavingScore',
 });
 
 export function startWaiting(){
@@ -10,9 +13,9 @@ export function startWaiting(){
     };
 }
 
-export function startGame() {
+export function showBoard() {
     return {
-        type: Action.StartGame,
+        type: Action.ShowBoard,
     };
 }
 
@@ -21,6 +24,20 @@ export function loadScores(scoreboard){
         type: Action.LoadScores,
         payload: scoreboard,
     };
+}
+
+export function finishAddingScore(score){
+    return {
+        type: Action.FinishAddingScore,
+        payload: score,
+    }
+}
+
+function finishSavingScore(score){
+    return {
+        type: Action.FinishSavingScore,
+        payload: score,
+    }
 }
 
 function checkForErrors(response) {
@@ -45,6 +62,55 @@ export function loadScoreboard() {
             })
             .catch(e => console.error(e));
     };
+}
+
+export function startAddingScore(name, moves) {
+    const score = {
+        name, moves
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(score),
+    }
+    return dispatch => {
+        dispatch(startWaiting());
+        fetch(`${host}/scoreboard`, options)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    score.id = data.id;
+                    dispatch(finishAddingScore(score));
+                }
+            })
+            .catch(e => console.error(e));
+    }
+}
+
+export function startSavingScore(score){
+    const options = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(score),
+    };
+
+    return dispatch => {
+        dispatch(startWaiting());
+        fetch(`${host}/scoreboard/${score.id}`, options)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    dispatch(finishSavingScore(score));
+                }
+            })
+            .catch(e => console.error(e))
+    }
 }
 
 

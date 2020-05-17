@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import Board from './Board';
 import Score from './Score';
 import back from './assets/gray-square.jpg';
@@ -13,26 +13,25 @@ import seagull from './assets/seagull.jpg';
 import './App.css';
 import './Board.css';
 import {useSelector, useDispatch} from 'react-redux';
-import {loadScoreboard, startGame} from './actions';
+import {loadScoreboard} from './actions';
 
 function App() {
 
   const scoreboard = useSelector(state => state.scoreboard);
   const isWaiting = useSelector(state => state.isWaiting);
-  const startGame = useSelector(state => state.startGame);
+  const [boardFlag, setBoardFlag] = useState(false);
   const cards = buildCards();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadScoreboard()); 
   }, [dispatch]);
-  
-  /*
-  const onStart = () => {
-    dispatch(startGame());
-  }
-  */
 
+  function toggleBoard() {
+    setBoardFlag(!boardFlag);
+  }
+  
+  if(boardFlag){
   return (
     <div className="App">
       <div id="left-side">
@@ -42,13 +41,28 @@ function App() {
         </div>
       </div>
       <div id="right-side">
-        <button id="score-board">Scoreboard</button>
+        <button id="score-board" onClick={toggleBoard}>Scoreboard</button>
         <div id="scores">
-          {scoreboard.map(score => <Score key={score.id} score={score} />)}
+           {scoreboard.map(score => <Score key={score.id} score={score}/>)}
         </div>
       </div>
     </div>
   );
+  } else {
+    return (
+      <div className="App">
+        <div id="left-side">
+          <p id="move-counter">Moves: 0</p>
+          <div id="gameBoard" className="Board">
+            <Board cards={cards}/>
+          </div>
+        </div>
+        <div id="right-side">
+          <button id="score-board" onClick={toggleBoard}>Scoreboard</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -15,6 +15,7 @@
 
   #scores {
     margin-top: 30px;
+    
   }
 
   #score-board {
@@ -24,6 +25,11 @@
     font-weight: bold;
     cursor: pointer;
     user-select: none;
+  }
+
+  #score-board:hover{
+    background-color: darkgray;
+    border: 1px solid darkgray;
   }
 
   #move-counter {
