@@ -29,8 +29,8 @@ export function Score(props) {
     } else {
         return (
             <div className="score">
-                <span>{name}</span>
-                <span> {moves}</span>
+                <span>Name: {name} </span>
+                <span>Moves: {moves}</span>
             </div>
         );
     }
