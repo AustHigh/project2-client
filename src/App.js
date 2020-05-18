@@ -19,10 +19,15 @@ function App() {
 
   const scoreboard = useSelector(state => state.scoreboard);
   const isWaiting = useSelector(state => state.isWaiting);
+
+  //a flag use to toggle the scoreboard, so the user can choose to have it visible or not
   const [boardFlag, setBoardFlag] = useState(false);
+
+  //builds an array of Card components using the buildCards method
   const cards = buildCards();
   const dispatch = useDispatch();
 
+  //toggles the scoreboard, and retrieves the current data in the database
   function toggleBoard() {
     setBoardFlag(!boardFlag);
     dispatch(loadScoreboard()); 
@@ -32,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <div id="left-side">
+        <h2>Flip and match the cards to win!</h2>
         <p id="move-counter">Moves: 0</p>
         {isWaiting && <div className="loading-icon">&#8635;</div>}
         <div id="gameBoard" className="Board">
@@ -50,6 +56,7 @@ function App() {
     return (
       <div className="App">
         <div id="left-side">
+        <h2>Flip and match the cards to win!</h2>
           <p id="move-counter">Moves: 0</p>
           {isWaiting && <div className="loading-icon">&#8635;</div>}
           <div id="gameBoard" className="Board">
@@ -66,6 +73,7 @@ function App() {
 
 export default App;
 
+//builds an array of cards, generating 8 unique cards, then using the getCard method twice in order to make pairs of those cards
 function buildCards() {
   let id = 0
   const images = {crow, cursedSmile, facetimeCat, noLikeBanana, rat, sadCatJuul, scream, seagull}
@@ -79,9 +87,11 @@ function buildCards() {
     })
     return [...result, getCard(), getCard()]
   }, [])
+  //after the array is generated, shuffle up those bad boys
   return shuffle(cards)
 }
 
+//shuffles the card array so that the cards are in a random order. the player deserves a slight challenge
 function shuffle(arr) {
   let len = arr.length
   for (let i = 0; i < len; i++) {
