@@ -99,6 +99,7 @@ const Board = props => {
 if(endFlag && postButtonFlag){
   return (
     <div className="score-form">
+      <h2>Refresh to play again!</h2>
       <button id="post-score-button" onClick={onPost}>Post Score</button>
       {scoreboard.map(score => <Score key={score.id} score={score}/>)}
     </div>
